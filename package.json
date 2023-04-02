@@ -1,5 +1,5 @@
 {
-  "name": "Springboot-React",
+  "name": "springboot-react",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -12,6 +12,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@capacitor/android": "4.7.3",
     "@capacitor/app": "4.1.1",
     "@capacitor/core": "4.7.3",
     "@capacitor/haptics": "4.1.0",
@@ -43,5 +44,8 @@
     "vite": "^4.1.0",
     "vitest": "^0.29.2"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "main": ".eslintrc.js",
+  "author": "tobias occhiuzzi",
+  "license": "ISC"
 }
