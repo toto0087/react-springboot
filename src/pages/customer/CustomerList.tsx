@@ -2,6 +2,7 @@ import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader,
 import { add, close, pencil } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
+import { searchCustomer } from './CustomerApi';
 
 
 const CustomerList: React.FC = (props: any) => {
@@ -17,11 +18,14 @@ const CustomerList: React.FC = (props: any) => {
     
     
     const search = () => {
-        
+    let result=searchCustomer();    
+    setClientes(result);
     }
 
 
   return (
+
+    
     <IonPage>
       <IonHeader>
         <IonToolbar>
@@ -63,22 +67,25 @@ const CustomerList: React.FC = (props: any) => {
                 <IonCol>Acciones</IonCol>
               </IonRow>
 
-              <IonRow>
-                <IonCol>Tobias Occhiuzzi</IonCol>
-                <IonCol>tobisape5@gmail.com</IonCol>
-                <IonCol>1159777634</IonCol>
-                <IonCol>bucarelli</IonCol>
-                <IonCol> 
-                    <IonButton color="primary" fill='clear'>
-                        <IonIcon icon={pencil} slot='icon-only' />
-                    </IonButton>    
-
-                    <IonButton color="danger" fill='clear'>
-                        <IonIcon icon={close} slot='icon-only' />
-                    </IonButton>   
-                </IonCol>
-              </IonRow>
-
+              {Clientes.map((cliente:any) => 
+                    <IonRow>
+                    <IonCol>{cliente.firstname} {cliente.lastname}</IonCol>
+                    <IonCol>{cliente.email}</IonCol>
+                    <IonCol>{cliente.phone}</IonCol>
+                    <IonCol>{cliente.address}</IonCol>
+                    <IonCol> 
+                        <IonButton color="primary" fill='clear'>
+                            <IonIcon icon={pencil} slot='icon-only' />
+                        </IonButton>    
+    
+                        <IonButton color="danger" fill='clear'>
+                            <IonIcon icon={close} slot='icon-only' />
+                        </IonButton>   
+                    </IonCol>
+                  </IonRow>
+    
+                )}
+              
 
             </IonGrid>
           </IonCard>
