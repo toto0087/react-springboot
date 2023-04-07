@@ -1,14 +1,24 @@
 export function searchCustomer() {
 
+    if(!localStorage['customers']) {
+        localStorage['customers'] = "[]";
+    }
+
     let customers = localStorage['customers'];
-    JSON.parse(customers);
+    customers=JSON.parse(customers);
     return customers;
 }
 
-export function removeCustomer() {
-    
+export function removeCustomer(id: string) {
+    let customers = searchCustomer();
+
+    let i = customers.findIndex((customer:any) => customer.id == id);
+    customers.splice(i,1);
+    localStorage["customers"] = JSON.stringify(customers);
 }
 
-export function editCustomer() {
-    
+export function saveCustomer(customer:any) {
+    let customers = searchCustomer();
+    customers.push(customer);
+    localStorage["customers"] = JSON.stringify(customers);
 }

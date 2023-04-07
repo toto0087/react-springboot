@@ -2,7 +2,7 @@ import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader,
 import { add, close, pencil } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { searchCustomer } from './CustomerApi';
+import { removeCustomer, saveCustomer, searchCustomer } from './CustomerApi';
 
 
 const CustomerList: React.FC = (props: any) => {
@@ -22,8 +22,21 @@ const CustomerList: React.FC = (props: any) => {
     setClientes(result);
     }
 
+    const remove = (id: string) => {
+        removeCustomer(id);
+        search();
+    }
 
-  return (
+
+    let pruebaLocalStorage = () => {
+        const ejemplo = {
+            id:"1",firstname:"Tobias",lastname:"Occhiuzzi",email:"tobisape5@gmail.com",phone:"32423243",address:"bucarelli"
+        }
+        saveCustomer(ejemplo);
+    }
+
+
+    return (
 
     
     <IonPage>
@@ -78,7 +91,7 @@ const CustomerList: React.FC = (props: any) => {
                             <IonIcon icon={pencil} slot='icon-only' />
                         </IonButton>    
     
-                        <IonButton color="danger" fill='clear'>
+                        <IonButton color="danger" fill='clear' onClick={()=>remove(cliente.id)}>
                             <IonIcon icon={close} slot='icon-only' />
                         </IonButton>   
                     </IonCol>
@@ -89,14 +102,12 @@ const CustomerList: React.FC = (props: any) => {
 
             </IonGrid>
           </IonCard>
-
+            
+            <IonButton onClick={pruebaLocalStorage} color="danger" fill="clear">
+                test local storage
+            </IonButton>
 
         </IonContent>
-
-
-
-
-
 
       </IonContent>
     </IonPage>
