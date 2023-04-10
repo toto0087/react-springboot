@@ -8,13 +8,13 @@ import { removeCustomer, saveCustomer, searchCustomer } from './CustomerApi';
 const CustomerList: React.FC = (props: any) => {
   const { name } = useParams<{ name: string; }>();
   const [Clientes,setClientes] = useState<any>([]);
-
+  const history = useHistory();
 
     useEffect(() =>{
 
         search();
         
-    },[]);
+    },[history.location.pathname]);
     
     
     const search = () => {
@@ -28,11 +28,13 @@ const CustomerList: React.FC = (props: any) => {
     }
 
 
-    let pruebaLocalStorage = () => {
-        const ejemplo = {
-            id:"1",firstname:"Tobias",lastname:"Occhiuzzi",email:"tobisape5@gmail.com",phone:"32423243",address:"bucarelli"
-        }
-        saveCustomer(ejemplo);
+    const addCustomer = () => {
+        history.push("/page/customer/new");
+    }
+
+
+    const editCustomer = (id:string) => {
+        history.push("/page/customer/" + id);
     }
 
 
@@ -65,7 +67,7 @@ const CustomerList: React.FC = (props: any) => {
             <IonTitle>Gestión de Clientes</IonTitle>
 
             <IonItem>
-              <IonButton color="primary" fill="solid" slot="end" size="default">
+              <IonButton onClick={addCustomer} color="primary" fill="solid" slot="end" size="default">
                 <IonIcon icon={add} />
                 Agregar Cliente
               </IonButton>
@@ -87,7 +89,7 @@ const CustomerList: React.FC = (props: any) => {
                     <IonCol>{cliente.phone}</IonCol>
                     <IonCol>{cliente.address}</IonCol>
                     <IonCol> 
-                        <IonButton color="primary" fill='clear'>
+                        <IonButton color="primary" fill='clear' onClick={()=>editCustomer(cliente.id)}>
                             <IonIcon icon={pencil} slot='icon-only' />
                         </IonButton>    
     
@@ -102,10 +104,6 @@ const CustomerList: React.FC = (props: any) => {
 
             </IonGrid>
           </IonCard>
-            
-            <IonButton onClick={pruebaLocalStorage} color="danger" fill="clear">
-                test local storage
-            </IonButton>
 
         </IonContent>
 

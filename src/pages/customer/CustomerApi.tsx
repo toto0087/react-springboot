@@ -19,6 +19,24 @@ export function removeCustomer(id: string) {
 
 export function saveCustomer(customer:any) {
     let customers = searchCustomer();
+
+    if(customer.id) {
+        //si existe se edita
+        let i = customer.findIndex((c:any)=>c.id==customer.id);
+        customer[i] = customer;
+    } else {
+        //si no existe se crea
+        customer.id = Math.round(Math.random() * 1000000);
+        customer.push(customer);
+    }
+
     customers.push(customer);
     localStorage["customers"] = JSON.stringify(customers);
+    console.log(customers)
 }
+
+export function searchCustomerById(id:string) {
+    let customers = searchCustomer();
+    return customers.find((customer:any) => customer.id == id); 
+}
+
